@@ -1,0 +1,132 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <style>body{margin:0 100; background:white;}</style>
+    </head>
+    <body>
+        <h1>Planned Facility Utilization at National University of Singapore</h1>
+
+        <h2>Introduction</h2>
+
+        <p>The National University of Singapore (NUS) has hundreds of teaching facilities (classrooms, seminar rooms, lecture theatres 
+            and laboratories) spread across its 1.5 kilometre square main campus at Kent Ridge. Before the start of every semester, 
+            allocation of limited teaching facilities for hundreds of modules, tens of thousands of students over 13 instructional weeks 
+            is a daunting task. In this analysis, we investigate the planned utilization of these teaching facilities from the perspective 
+            of a lesson scheduler. The role of a scheduler is to plan out lesson timings, allocate facilities for lessons and pre-empt 
+            future needs. </p>
+
+        
+
+        <h2>Dataset</h2>
+        <p>The dataset is obtained from nusmods.com. It comprises of planned schedules for teaching facilities in NUS. It includes the name of the facility, start time, 
+            end time of scheduled lesson, the module code of the lesson conducted which instructional week is it being scheduled for and
+            the latitude and longitude of the venue. </p>
+
+
+        <h2>Analysis</h2>
+        <br>
+        <h3>Query 1: Is the utilization of all teaching facilities evenly spread across the entire semester?</h3>
+        <br>
+        <img src = "charts/heatmap1.png">
+        <ul>
+            <li>
+                Utilization of facilities are not even across day of week. Tuesday and Thursday have heaviest utilization 
+                while Wednesday and Friday have lower utilizations. Should facilities be over utilized on Tuesday and Thursday, 
+                a solution might be to schedule some lessons on Wednesday and Friday instead.
+            </li>
+            <li>
+                Utilization is also not even throughout the weeks. Week 1 and 2 have lower utilization and it increased from 
+                week 3 onwards (refer to query 2).
+            </li>
+            <li>
+                There is also difference in utilization between odd and even weeks, this can be seen in the alternating light 
+                and darker shades, most obvious across Wednesdays and Fridays. This is presumably due to alternating odd/even week tutorials.
+            </li>
+        </ul>
+
+
+        <br>
+        <h3>Query 2: What causes the increase in utilization from week 3 onwards?</h3>
+        <br>
+        <img src = "charts/stackedbar.png">
+        <ul>
+            <li>
+                In Query 1, we saw that the utilization of facilities increased from week 3 onwards, this is due to the start 
+                of tutorial sessions as shown by the increase in length of the green bar.
+            </li>
+        </ul>
+
+        <br>
+        <h3>Query 3: Is utilization of Lecture Theatres evenly spread across the entire semester?</h3>
+        <br>
+        <img src = "charts/heatmap2.png">
+        <ul>
+            <li>
+                We look at facilities whose names starts with “LT”, e.g. LT19.               
+            </li>
+            <li>
+                Most of the utilization of lecture theatres are on Monday and Tuesday.
+            </li>
+            <li>
+                Load balancing can be done by shifting large classes to other days if necessary.
+            </li>
+        </ul>
+        <br>
+        
+
+        <p>We drill down to look at utilization of different LT across the semester. LT8 to LT17 except for LT15 appears 
+            to be underutilized. Can we shift some of the load from highly utilized LTs to the underutilized LTs? (Refer to next query)
+        </p>
+        <img src = "charts/heatmap3.png" width="500", height="800">
+
+
+        <br>
+        <h3>Query 4: Can utilization be balanced among LTs?</h3>
+        <br>
+        <p>Let’s look at the geographical location of the LTs and their utilization.</p>
+        <iframe width="800" height="500" frameborder="0" seamless="seamless" scrolling="no" src="charts/lt.html"></iframe>
+        <ul>
+            <li>
+                The LTs are generally located in clusters, one at Faculty of Science (FoS), one at Faculty of Engineering (FoE)
+                and the rest at Faculty of Arts and Social Sciences (FASS) and School of Computing (SoC).              
+            </li>
+            <li>
+                It appears that utilization of LTs at FoS is highest, while utilization at FASS and SoC are lowest.
+            </li>
+            <li>
+                An ideal way to balance utilization would be to spread the load to nearby LTs, to reduce excessive travelling by 
+                staffs and students. However, all nearby LTs at FoS are almost fully utilized.  It may not be ideal to transfer FoS 
+                lectures to FASS taking into consideration of the inconvenience of travelling by FoS staffs and students.
+            </li>
+        </ul>
+
+
+        <br>
+        <h3>Query 5: Does Faculty of Science also experience high utilization for Non-LT facilities?</h3>
+        <br>
+        <p>Let’s look at the geographical location of the LTs and their utilization.</p>
+        <iframe width="800" height="500" frameborder="0" seamless="seamless" scrolling="no" src="charts/non-lt.html"></iframe>
+        <ul>
+            <li>
+                Once again, we see that the facilities are clustered. One at Faculty of Science (FoS), 
+                one at Faculty of Engineering (FoE) and the rest at Faculty of Arts and Social Sciences (FASS) 
+                and School of Computing (SoC).           
+            </li>
+            <li>
+                It appears that the non-LT facilities at FoS are of low utilization while facilities at FASS 
+                & SoC are of higher utilization. This is the opposite as compared to what we saw in LT facilities. 
+            </li>
+            <li>
+                This might be due to the nature of the classes. FoS has more large-group teaching (i.e. lectures) and fewer
+                tutorial groups and seminars while the opposite is true for FASS.
+            </li>
+            <li>
+                Despite the higher utilization at FASS and SoC, we see that there is still some spare capacity (green dots) 
+                indicating that the number of facilities is sufficient to cater to the classes for now.
+            </li>
+        </ul>
+
+        <br>
+        <br>
+    </body>
+</html>
